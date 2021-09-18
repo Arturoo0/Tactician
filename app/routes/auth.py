@@ -43,4 +43,23 @@ def signup():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    return {}
+    body = dict(request.form)
+    email, username, password = itemgetter('email', 'username', 'password')(body)
+
+    docMatch = {
+        'email': email,
+        'username': username
+    }
+    matchingDoc = mongo.db[User.collection_name].find_one(docMatch)
+    if not matchingDoc:
+        return {
+            'message': 'No matching email/username found'
+        }, 401
+    if bcrypt.check_password_hash(matchingDoc['password'], password):
+        return {
+            'message': 'Login succesful'
+        }
+    else:
+        return {
+            'message': 'Incorrect password was provided'
+        }, 401
