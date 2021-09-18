@@ -13,6 +13,16 @@ def signup():
         body = dict(request.form)
         email, username, password = itemgetter('email', 'username', 'password')(body)
 
+        if mongo.db[User.collection_name].find_one({'email': email}):
+            return {
+                'message': 'Email already exists'
+            }, 401
+
+        if mongo.db[User.collection_name].find_one({'username': username}):
+            return {
+                'message': 'Username already exists'
+            }, 401
+
         password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         newUser = User(email, username, password)
@@ -29,4 +39,27 @@ def signup():
             }
         return {
             'message': 'Was not able to sign up, something occured'
+        }, 401
+
+@auth.route('/login', methods=['POST'])
+def login():
+    body = dict(request.form)
+    email, username, password = itemgetter('email', 'username', 'password')(body)
+
+    docMatch = {
+        'email': email,
+        'username': username
+    }
+    matchingDoc = mongo.db[User.collection_name].find_one(docMatch)
+    if not matchingDoc:
+        return {
+            'message': 'No matching email/username found'
+        }, 401
+    if bcrypt.check_password_hash(matchingDoc['password'], password):
+        return {
+            'message': 'Login succesful'
         }
+    else:
+        return {
+            'message': 'Incorrect password was provided'
+        }, 401
