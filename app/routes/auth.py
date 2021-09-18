@@ -30,3 +30,7 @@ def signup():
         return {
             'message': 'Was not able to sign up, something occured'
         }
+
+@auth.route('/login', methods=['POST'])
+def login():
+    return {}
