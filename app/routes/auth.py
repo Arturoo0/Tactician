@@ -1,10 +1,13 @@
 
 from flask import Blueprint, request, jsonify
 from ..models.user import User 
+from ..models.session import Session
 from .. import mongo, bcrypt
 from operator import itemgetter
 import logging 
 from flask_cors import cross_origin
+import uuid
+import time
 
 auth = Blueprint('auth', __name__)
 
@@ -28,7 +31,9 @@ def signup():
         password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         newUser = User(email, username, password)
+        newSession = Session(uuid.uuid4(), time.time() + (60 * 60 * 24))
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
+        mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
         return {
             'message': 'Sign up succesful'
         }
