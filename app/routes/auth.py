@@ -31,19 +31,21 @@ def signup():
         password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         newUser = User(email, username, password)
-        newSession = Session(uuid.uuid4(), time.time() + (60 * 60 * 24))
+        generated_session_id = uuid.uuid4()
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
+
         return {
             'message': 'Sign up succesful'
-        }
+        }, 200, {'Set-Cookie': f"session_id:{generated_session_id}"}
     except Exception as e:
         logging.error(e)
         error_msg = str(e)
         if (error_msg in User.value_error_mapper):
             return {
                 'message': User.value_error_mapper[error_msg]
-            }
+            }, 401
         return {
             'message': 'Was not able to sign up, something occured'
         }, 401
