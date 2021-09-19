@@ -1,9 +1,10 @@
 
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from ..models.user import User 
 from .. import mongo, bcrypt
 from operator import itemgetter
 import logging 
+from flask_cors import cross_origin
 
 auth = Blueprint('auth', __name__)
 
@@ -42,8 +43,9 @@ def signup():
         }, 401
 
 @auth.route('/login', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def login():
-    body = dict(request.form)
+    body = dict(request.json)
     email, username, password = itemgetter('email', 'username', 'password')(body)
 
     docMatch = {

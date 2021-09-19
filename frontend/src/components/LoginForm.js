@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { post } from '../utils/baseRequest';
 
 const loginContainer = {
     display: 'flex',
@@ -12,13 +13,13 @@ const LoginForm = () => {
     const [usernameInput, setUsernameInput] = useState(null);
     const [passwordInput, setPasswordInput] = useState(null);
 
-    const pullFormInput = () => {
+    const pullFormInput = async () => {
         const inputs = {
             email: emailInput,
             username: usernameInput,
             password: passwordInput
         }
-        console.log(inputs);
+        await post('auth/login', inputs);
     };
 
     return (
