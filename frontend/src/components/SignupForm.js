@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { post } from '../utils/baseRequest';
 
-const loginContainer = {
+const signupFormContainer = {
     display: 'flex',
     flexDirection: 'column', 
     width: '300px'
 }
 
-const LoginForm = () => {
+const SignupForm = () => {
     const [emailInput, setEmailInput] = useState(null);
     const [usernameInput, setUsernameInput] = useState(null);
     const [passwordInput, setPasswordInput] = useState(null);
@@ -19,17 +19,17 @@ const LoginForm = () => {
             username: usernameInput,
             password: passwordInput
         }
-        const response = await post('auth/login', inputs);
+        const response = await post('auth/sign-up', inputs);
         if (response.status !== '200' && 'errRes' in response){
             window.alert(response.errRes.message)
         }else{
             window.alert(response.data.message)
-        }
-    };
+        }   
+    }
 
     return (
-        <div style={loginContainer}>
-            Login
+        <div style={signupFormContainer}>
+            Sign up
             <label for="Email">Email</label>
             <input onChange={(e) => setEmailInput(e.target.value)} type="text" id="Email" name="Email"></input>
 
@@ -44,4 +44,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default SignupForm;

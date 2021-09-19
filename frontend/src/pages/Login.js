@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LoginForm } from '../components';
+import { LoginForm, SignupForm } from '../components';
 
 const loginContainer = {
     display: 'flex',
@@ -13,6 +13,7 @@ const Login = () => {
     return (
         <div style={loginContainer}>
             <LoginForm />
+            <SignupForm />
         </div>
     );
 }; 

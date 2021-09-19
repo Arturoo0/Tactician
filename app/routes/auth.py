@@ -9,9 +9,10 @@ from flask_cors import cross_origin
 auth = Blueprint('auth', __name__)
 
 @auth.route('/sign-up', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def signup():
     try:
-        body = dict(request.form)
+        body = dict(request.json)
         email, username, password = itemgetter('email', 'username', 'password')(body)
 
         if mongo.db[User.collection_name].find_one({'email': email}):
