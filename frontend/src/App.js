@@ -1,8 +1,9 @@
+import { Login } from "./components";
 
 function App() {
   return (
     <div className="App">
-      Hi
+      <Login />
     </div>
   );
 }
