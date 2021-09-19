@@ -7,7 +7,7 @@ const loginContainer = {
     width: '300px'
 }
 
-const Login = () => {
+const LoginForm = () => {
     const [emailInput, setEmailInput] = useState(null);
     const [usernameInput, setUsernameInput] = useState(null);
     const [passwordInput, setPasswordInput] = useState(null);
@@ -37,4 +37,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default LoginForm;
