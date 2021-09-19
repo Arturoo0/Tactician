@@ -64,6 +64,8 @@ def login():
             'message': 'No matching email/username found'
         }, 401
     if bcrypt.check_password_hash(matchingDoc['password'], password):
+        newSession = Session(uuid.uuid4(), time.time() + (60 * 60 * 24))
+        mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
         return {
             'message': 'Login succesful'
         }
