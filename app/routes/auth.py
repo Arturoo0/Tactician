@@ -10,6 +10,7 @@ import uuid
 import time
 
 auth = Blueprint('auth', __name__)
+cookie_key = 'session_id'
 
 @auth.route('/sign-up', methods=['POST'])
 @cross_origin(supports_credentials=True)
@@ -33,12 +34,13 @@ def signup():
         newUser = User(email, username, password)
         generated_session_id = uuid.uuid4()
         newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
+
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
 
         return {
             'message': 'Sign up succesful'
-        }, 200, {'Set-Cookie': f"session_id={generated_session_id}"}
+        }, 200, {'Set-Cookie': f"{cookie_key}={generated_session_id}"}
     except Exception as e:
         logging.error(e)
         error_msg = str(e)
@@ -66,17 +68,29 @@ def login():
             'message': 'No matching email/username found'
         }, 401
     if bcrypt.check_password_hash(matchingDoc['password'], password):
-        newSession = Session(uuid.uuid4(), time.time() + (60 * 60 * 24))
+        generated_session_id = uuid.uuid4()
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
         return {
             'message': 'Login succesful'
-        }
+        }, 200, {'Set-Cookie': f"{cookie_key}={generated_session_id}"}
     else:
         return {
             'message': 'Incorrect password was provided'
         }, 401
 
-@auth.route('/test', methods=['POST'])
+@auth.route('/is-valid-session', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def test():
-    return {}, 200, {'Set-Cookie': f"session_id={'lol'}"}
+def is_valid_session():
+    session_id = dict(request.cookies)[cookie_key]
+    matchingSessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
+    print(matchingSessions)
+
+    if not matchingSessions:
+        return {
+            'message': 'No matching session'
+        }, 401
+    else:
+        return {
+            'message': 'OK'
+        }
