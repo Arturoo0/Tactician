@@ -82,15 +82,11 @@ def login():
 @auth.route('/is-valid-session', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def is_valid_session():
-    session_id = dict(request.cookies)[cookie_key]
-    matchingSessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
-    print(matchingSessions)
-
-    if not matchingSessions:
-        return {
-            'message': 'No matching session'
-        }, 401
+    cookies = dict(request.cookies)
+    if cookie_key in cookies:
+        session_id = cookies[cookie_key]
+        matchingSessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
+        if not matchingSessions: return {}, 401
+        return {}
     else:
-        return {
-            'message': 'OK'
-        }
+        return {}, 401
