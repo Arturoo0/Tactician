@@ -1,15 +1,16 @@
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from ..models.user import User 
 from ..models.session import Session
 from .. import mongo, bcrypt
 from operator import itemgetter
 import logging 
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 import uuid
 import time
 
 auth = Blueprint('auth', __name__)
+CORS(auth)
 cookie_key = 'session_id'
 
 @auth.route('/sign-up', methods=['POST'])
@@ -38,9 +39,11 @@ def signup():
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
 
-        return {
+        response = make_response({
             'message': 'Sign up succesful'
-        }, 200, {'Set-Cookie': f"{cookie_key}={generated_session_id}"}
+        }) 
+        response.set_cookie(cookie_key, value=str(generated_session_id))
+        return response 
     except Exception as e:
         logging.error(e)
         error_msg = str(e)
@@ -85,8 +88,8 @@ def is_valid_session():
     cookies = dict(request.cookies)
     if cookie_key in cookies:
         session_id = cookies[cookie_key]
-        matchingSessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
-        if not matchingSessions: return {}, 401
+        matching_sessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
+        if not matching_sessions: return {}, 401
         return {}
     else:
         return {}, 401

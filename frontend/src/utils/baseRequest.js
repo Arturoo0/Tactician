@@ -19,7 +19,8 @@ const get = async (endpoint, body) => {
             data: body,
             headers: {
                 'Content-Type': 'application/json',
-                'withCredentials': true 
+                'withCredentials': true,
+                'Access-Control-Allow-Credentials': true
             }
         });
         return res;
@@ -38,7 +39,8 @@ const post = async (endpoint, body) => {
             data: body,
             headers: {
                 'Content-Type': 'application/json',
-                'withCredentials': true
+                'withCredentials': true,
+                'Access-Control-Allow-Credentials': true
             } 
         });
         return res;
