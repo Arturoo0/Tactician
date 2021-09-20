@@ -38,7 +38,7 @@ def signup():
 
         return {
             'message': 'Sign up succesful'
-        }, 200, {'Set-Cookie': f"session_id:{generated_session_id}"}
+        }, 200, {'Set-Cookie': f"session_id={generated_session_id}"}
     except Exception as e:
         logging.error(e)
         error_msg = str(e)
@@ -75,3 +75,8 @@ def login():
         return {
             'message': 'Incorrect password was provided'
         }, 401
+
+@auth.route('/test', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def test():
+    return {}, 200, {'Set-Cookie': f"session_id={'lol'}"}
