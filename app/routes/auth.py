@@ -88,8 +88,8 @@ def is_valid_session():
     cookies = dict(request.cookies)
     if cookie_key in cookies:
         session_id = cookies[cookie_key]
-        matching_sessions = mongo.db[Session.collection_name].find_one({cookie_key: session_id})
+        matching_sessions = mongo.db[Session.collection_name].find_one({cookie_key: uuid.UUID(session_id)})
         if not matching_sessions: return {}, 401
-        return {}
+        return {}, 200
     else:
         return {}, 401
