@@ -9,6 +9,6 @@ CORS(puzzles)
 @puzzles.route('/<rating>', methods=['GET'])
 @cross_origin(supports_credentials=True)
 def get_puzzle(rating):
-    return {}
+    return puzzle_container.pull_tactic(rating)
 
 
