@@ -3275,6 +3275,11 @@
   "resolved" "https://registry.npmjs.org/check-types/-/check-types-11.1.2.tgz"
   "version" "11.1.2"
 
+"chess.js@^0.12.0":
+  "integrity" "sha512-eF1xf4j88r/AwIRxqV1FXZbVgMt4yUx05xrL+ZMqUrY+snFrUxGVHs0VgEd3AvngujDE9th7XZqqCwEKEQ7mWQ=="
+  "resolved" "https://registry.npmjs.org/chess.js/-/chess.js-0.12.0.tgz"
+  "version" "0.12.0"
+
 "chessboardjsx@^2.4.7":
   "integrity" "sha512-cJN06EWkrRPSQhOFEbw16zL5D9N6jYs29N2gG0IzSDhDpzWyHaTfUcLq/7e0moZ5Pr7m7vbhEyKuw8/lV22YOA=="
   "resolved" "https://registry.npmjs.org/chessboardjsx/-/chessboardjsx-2.4.7.tgz"

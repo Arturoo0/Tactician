@@ -30,7 +30,7 @@ function App() {
               isAuthenticated ? 
               <PlayPuzzle />
               :
-              <div>no</div>
+              <div>Not authenticated</div>
             }
           </Route>
         </Switch>
