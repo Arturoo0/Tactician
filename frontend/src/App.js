@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
+import PlayPuzzle from './pages/PlayPuzzle';
 import { get } from './utils/baseRequest';
 import {
   BrowserRouter as Router,
@@ -27,7 +28,7 @@ function App() {
           <Route path="/home">
             {
               isAuthenticated ? 
-              <div>yes</div>
+              <PlayPuzzle />
               :
               <div>no</div>
             }
