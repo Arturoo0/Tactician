@@ -6,17 +6,23 @@ import { get } from '../utils/baseRequest';
 const containerStyle = {};
 
 const PlayPuzzle = () => {
-    const [restart, setRestart] = useState(false);
     const [currentPulledPuzzle, setCurrentPulledPuzzle] = useState(null);
-    useEffect(async () => {
+    const [key, setKey] = useState(0);
+
+    const pullNewPuzzle = async () => {
         const testRating = 1500;
         const response = await get(`/puzzles/${testRating}`);
         setCurrentPulledPuzzle(response.data);
-    }, [restart]);
+        setKey(Math.random());
+    };
+
+    useEffect(async () => {
+        pullNewPuzzle();
+    }, []);
 
     const handleDone = () => {
-        setRestart(!restart);
-    };
+        pullNewPuzzle();
+    }; 
 
     return (
         <div style={containerStyle}>
@@ -27,7 +33,7 @@ const PlayPuzzle = () => {
                 </div>
                 : 
                 <div>
-                    <Puzzle gameHandler={handleDone} puzzle={currentPulledPuzzle}/>
+                    <Puzzle key={key} gameHandler={handleDone} puzzle={currentPulledPuzzle}/>
                 </div>
             }
         </div>  
