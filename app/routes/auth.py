@@ -31,10 +31,11 @@ def signup():
             }, 401
 
         password = bcrypt.generate_password_hash(password).decode('utf-8')
+        user_data_identifier = uuid.uuid4()
 
-        newUser = User(email, username, password)
+        newUser = User(email, username, password, user_data_identifier)
         generated_session_id = uuid.uuid4()
-        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24), user_data_identifier)
 
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
@@ -72,7 +73,7 @@ def login():
         }, 401
     if bcrypt.check_password_hash(matchingDoc['password'], password):
         generated_session_id = uuid.uuid4()
-        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24), matchingDoc['user_data_identifier'])
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
         return {
             'message': 'Login succesful'
