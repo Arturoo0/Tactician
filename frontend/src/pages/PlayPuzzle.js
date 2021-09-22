@@ -17,10 +17,10 @@ const PlayPuzzle = () => {
 
     const pullNewPuzzle = async () => {
         if (currentPulledPuzzle !== null){
-            console.log(isIncorrect);
-            post('/puzzles/user-submission', {
+            await post('/puzzles/user-submission', {
                 'PuzzleId': currentPulledPuzzle.PuzzleId,
-                'Correct': !isIncorrect
+                'Correct': !isIncorrect,
+                'Rating': currentPulledPuzzle.Rating
             });
         }
         const testRating = 1500;
