@@ -2,6 +2,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from ..models.user import User 
 from ..models.session import Session
+from ..models.user_data import UserData
 from .. import mongo, bcrypt
 from operator import itemgetter
 import logging 
@@ -31,13 +32,16 @@ def signup():
             }, 401
 
         password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-        newUser = User(email, username, password)
+        user_data_identifier = uuid.uuid4()
         generated_session_id = uuid.uuid4()
-        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
+
+        newUser = User(email, username, password, user_data_identifier)
+        newUserData = UserData(user_data_identifier, [], [])
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24), user_data_identifier)
 
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
+        mongo.db[UserData.collection_name].insert_one(newUserData.generate_schema_dict())
 
         response = make_response({
             'message': 'Sign up succesful'
@@ -72,7 +76,7 @@ def login():
         }, 401
     if bcrypt.check_password_hash(matchingDoc['password'], password):
         generated_session_id = uuid.uuid4()
-        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24))
+        newSession = Session(generated_session_id, time.time() + (60 * 60 * 24), matchingDoc['user_data_identifier'])
         mongo.db[Session.collection_name].insert_one(newSession.generate_schema_dict())
         return {
             'message': 'Login succesful'
