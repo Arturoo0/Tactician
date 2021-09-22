@@ -36,7 +36,7 @@ def get_puzzle(rating):
     mongo.db[UserData.collection_name].update_one(matchTo, {
         '$push': {'puzzles_served': pulledPuzzle['PuzzleId']}
     })
-
+    pulledPuzzle['user_rating'] = user_data_doc['rating']
     return pulledPuzzle
 
 @puzzles.route('/user-submission', methods=['POST'])

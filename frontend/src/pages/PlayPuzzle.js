@@ -7,13 +7,15 @@ const containerStyle = {
     display: 'flex',
     height: '100vh',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'column'
 };
 
 const PlayPuzzle = () => {
     const [currentPulledPuzzle, setCurrentPulledPuzzle] = useState(null);
     const [key, setKey] = useState(false);
     const [isIncorrect, setIsIncorrect] = useState(false);
+    const [rating, setRating] = useState('loading...');
 
     const pullNewPuzzle = async () => {
         if (currentPulledPuzzle !== null){
@@ -28,6 +30,7 @@ const PlayPuzzle = () => {
         setCurrentPulledPuzzle(response.data);
         setKey(!key);
         setIsIncorrect(false);
+        setRating(response.data.user_rating)
     };
 
     useEffect(async () => {
@@ -51,6 +54,7 @@ const PlayPuzzle = () => {
                 </div>
                 : 
                 <div>
+                    <h3>Rating {rating}</h3>
                     <Puzzle 
                         key={key} 
                         gameHandler={handleDone} 
