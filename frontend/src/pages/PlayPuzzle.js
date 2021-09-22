@@ -12,13 +12,13 @@ const containerStyle = {
 
 const PlayPuzzle = () => {
     const [currentPulledPuzzle, setCurrentPulledPuzzle] = useState(null);
-    const [key, setKey] = useState(0);
+    const [key, setKey] = useState(false);
 
     const pullNewPuzzle = async () => {
         const testRating = 1500;
         const response = await get(`/puzzles/${testRating}`);
         setCurrentPulledPuzzle(response.data);
-        setKey(Math.random());
+        setKey(!key);
     };
 
     useEffect(async () => {
