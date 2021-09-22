@@ -50,12 +50,17 @@ const Puzzle = (props) => {
                             onDrop={({ sourceSquare, targetSquare, piece }) => {
                                 const moves = moveStack.slice();
                                 const neededMove = moveStack[moves.length - 1];
+
+                                // for testing purposes
+                                console.log(neededMove);
+
                                 if (neededMove === sourceSquare + targetSquare){
                                     moves.pop();
                                     if (moves.length === 0){
                                         gameInstance.move({from: sourceSquare, to: targetSquare});
                                         setMoveStack(moves);
                                         setGameOver(true);
+                                        props.gameHandler();
                                     }
                                     else{
                                         const opposingMove = moves.pop();
