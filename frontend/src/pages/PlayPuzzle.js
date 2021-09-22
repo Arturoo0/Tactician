@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Puzzle } from '../components';
 import { get } from '../utils/baseRequest';
 
-const containerStyle = {};
+const containerStyle = {
+    display: 'flex',
+    height: '100vh',
+    justifyContent: 'center',
+    alignItems: 'center'
+};
 
 const PlayPuzzle = () => {
     const [currentPulledPuzzle, setCurrentPulledPuzzle] = useState(null);
