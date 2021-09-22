@@ -68,6 +68,7 @@ const Puzzle = (props) => {
                 setMoveStack(moves); 
             }
         }else {
+            props.incorrectHandler();
             window.alert(`${sourceSquare + targetSquare} is incorrect`);
         }
     }

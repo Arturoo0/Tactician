@@ -36,7 +36,7 @@ def signup():
         generated_session_id = uuid.uuid4()
 
         newUser = User(email, username, password, user_data_identifier)
-        newUserData = UserData(user_data_identifier, [])
+        newUserData = UserData(user_data_identifier, [], [])
         newSession = Session(generated_session_id, time.time() + (60 * 60 * 24), user_data_identifier)
 
         mongo.db[User.collection_name].insert_one(newUser.generate_schema_dict())
