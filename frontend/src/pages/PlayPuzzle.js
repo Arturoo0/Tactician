@@ -24,6 +24,8 @@ const PlayPuzzle = () => {
     const [username, setUsername] = useState('loading...');
 
     const pullNewPuzzle = async () => {
+        const pulledUsername = await get('/user/username');
+        // console.log(pulledUsername);
         if (currentPulledPuzzle !== null){
             await post('/puzzles/user-submission', {
                 'PuzzleId': currentPulledPuzzle.PuzzleId,
