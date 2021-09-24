@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Puzzle } from '../components';
+import { Puzzle, PuzzlePanel } from '../components';
 import { get, post } from '../utils/baseRequest';
 
 const containerStyle = {
@@ -11,11 +11,17 @@ const containerStyle = {
     flexDirection: 'column'
 };
 
+const puzzleStyle = {
+    display: 'flex',
+    flexDirection: 'row'
+};
+
 const PlayPuzzle = () => {
     const [currentPulledPuzzle, setCurrentPulledPuzzle] = useState(null);
     const [key, setKey] = useState(false);
     const [isIncorrect, setIsIncorrect] = useState(false);
     const [rating, setRating] = useState('loading...');
+    const [username, setUsername] = useState('loading...');
 
     const pullNewPuzzle = async () => {
         if (currentPulledPuzzle !== null){
@@ -35,6 +41,7 @@ const PlayPuzzle = () => {
 
     useEffect(async () => {
         pullNewPuzzle();
+
     }, []);
 
     const handleDone = () => {
@@ -53,14 +60,14 @@ const PlayPuzzle = () => {
                     Loading
                 </div>
                 : 
-                <div>
-                    <h3>Rating {rating}</h3>
+                <div style={puzzleStyle}>
                     <Puzzle 
                         key={key} 
                         gameHandler={handleDone} 
                         puzzle={currentPulledPuzzle}
                         incorrectHandler={handleIncorrect}
                     />
+                    <PuzzlePanel rating={rating}/>
                 </div>
             }
         </div>  
