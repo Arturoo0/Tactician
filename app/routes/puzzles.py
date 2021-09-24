@@ -53,4 +53,6 @@ def user_submission():
         }},
         '$set': {'rating': new_user_rating}
     })
-    return {}
+    return {
+        'rating_change': new_user_rating - user_data_doc['rating']
+    }

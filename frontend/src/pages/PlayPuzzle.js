@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Puzzle, PuzzlePanel } from '../components';
+import { Puzzle, PuzzlePanel, RatingDiff } from '../components';
 import { get, post } from '../utils/baseRequest';
 import { Button } from 'react-bootstrap';
 import { BsArrowRight } from "react-icons/bs";
@@ -31,17 +31,10 @@ const PlayPuzzle = () => {
     const [rating, setRating] = useState('loading...');
     const [username, setUsername] = useState('loading...');
     const [displayGoNext, setDisplayGoNext] = useState(false);
+    const [ratingChange, setRatingChange] = useState(null);
 
     const pullNewPuzzle = async () => {
         const pulledUsername = await get('/user/username');
-        // console.log(pulledUsername);
-        if (currentPulledPuzzle !== null){
-            await post('/puzzles/user-submission', {
-                'PuzzleId': currentPulledPuzzle.PuzzleId,
-                'Correct': !isIncorrect,
-                'Rating': currentPulledPuzzle.Rating
-            });
-        }
         const testRating = 1500;
         const response = await get(`/puzzles/`);
         setCurrentPulledPuzzle(response.data);
@@ -56,8 +49,14 @@ const PlayPuzzle = () => {
         pullNewPuzzle();
     }, []);
 
-    const handleDone = () => {
+    const handleDone = async () => {
         setDisplayGoNext(true);
+        const response = await post('/puzzles/user-submission', {
+            'PuzzleId': currentPulledPuzzle.PuzzleId,
+            'Correct': !isIncorrect,
+            'Rating': currentPulledPuzzle.Rating
+        });
+        setRatingChange(response.data.rating_change);
     }; 
 
     const handleIncorrect = () => {
@@ -68,6 +67,9 @@ const PlayPuzzle = () => {
         if (displayGoNext === false) return null;
         return (
             <div style={goNextStyle}>
+                <div>
+                    <RatingDiff rating={rating} diff={ratingChange} id={currentPulledPuzzle.PuzzleId}/>
+                </div> 
                 <Button onClick={() => {pullNewPuzzle()}}>
                     <BsArrowRight style={{fontSize: '2rem'}}></BsArrowRight>
                 </Button>
