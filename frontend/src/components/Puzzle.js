@@ -49,9 +49,6 @@ const Puzzle = (props) => {
         const moves = moveStack.slice();
         const neededMove = moveStack[moves.length - 1];
 
-        // for testing purposes
-        console.log(neededMove);
-
         if (neededMove === sourceSquare + targetSquare){
             moves.pop();
             if (moves.length === 0){
@@ -79,17 +76,14 @@ const Puzzle = (props) => {
                 gameInstance === null ?
                     <div>Loading</div>
                 :
-                    gameOver === false ? 
-                        <Chessboard 
-                            orientation={playerColor} 
-                            position={gameInstance.fen()}
-                            allowDrag={({piece}) => _allowDrag(piece)}
-                            onDrop={({ sourceSquare, targetSquare, piece }) => {
-                                _onDrop(sourceSquare, targetSquare);
-                            }}
-                        />
-                        : 
-                        <div>finished</div>
+                    <Chessboard 
+                        orientation={playerColor} 
+                        position={gameInstance.fen()}
+                        allowDrag={({piece}) => _allowDrag(piece)}
+                        onDrop={({ sourceSquare, targetSquare, piece }) => {
+                            _onDrop(sourceSquare, targetSquare);
+                        }}
+                    />
             }
         </div>
     );

@@ -10,4 +10,6 @@ CORS(user)
 @cross_origin(supports_credentials=True)
 def username():
     user_data_doc = check_user_validity(request.cookies)
-    return {}
+    return {
+        'username': user_data_doc['username']
+    }

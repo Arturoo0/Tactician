@@ -28,7 +28,7 @@ def get_puzzle(rating):
 @puzzles.route('/user-submission', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def user_submission():
-    user_data_doc = check_user_validity(request)
+    user_data_doc = check_user_validity(request.cookies)
     if user_data_doc == 401:
         return {}, 401
     matchTo = {'user_data_identifier' : user_data_doc['user_data_identifier']}

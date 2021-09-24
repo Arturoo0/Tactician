@@ -13,23 +13,30 @@ const puzzleContainer = {
 const profileStyle = {
     width: '100%',
     textAlign: 'center',
-    fontSize: '4rem', 
-    padding: '10px 0 3px 0'
+    padding: '10px 0 3px 0', 
+    display: 'flex',
+    flexDirection: 'column'
 };
 
-const ratingStyle = {
-    fontSize: '2rem',
+const infoStyle = {
+    fontSize: '1.5rem',
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: '500'
 };
 
 const PuzzlePanel = (props) => {
     return (
         <div style={puzzleContainer}>
             <div style={profileStyle}>
-                <BsFillPersonFill></BsFillPersonFill>   
+                <div>
+                    <BsFillPersonFill size={'4rem'}></BsFillPersonFill>   
+                </div>
+                <div style={infoStyle}>
+                    {props.username}
+                </div>
             </div>
-            <div style={ratingStyle}>
+            <div style={infoStyle}>
                 {Math.round(props.rating)}
             </div>
         </div>
