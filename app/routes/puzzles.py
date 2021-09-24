@@ -9,9 +9,9 @@ from . import check_user_validity
 puzzles = Blueprint('puzzles', __name__)
 CORS(puzzles)
 
-@puzzles.route('/<rating>', methods=['GET'])
+@puzzles.route('/', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def get_puzzle(rating):
+def get_puzzle():
     user_data_doc = check_user_validity(request.cookies)
     if user_data_doc == 401:
         return {}, 401
@@ -32,6 +32,9 @@ def user_submission():
     if user_data_doc == 401:
         return {}, 401
     matchTo = {'user_data_identifier' : user_data_doc['user_data_identifier']}
+    if user_data_doc['puzzles_completed']:
+        if user_data_doc['puzzles_completed'][-1]['puzzle_id'] == request.json['PuzzleId']:
+            return {}, 401
 
     user_rating = user_data_doc['rating']
 
@@ -42,10 +45,6 @@ def user_submission():
 
     game_score_value = 1 if request.json['Correct'] == True else 0
     new_user_rating = user_data_doc['rating'] + ((32) * (game_score_value - expected_user))
-
-    if user_data_doc['puzzles_completed']:
-        if user_data_doc['puzzles_completed'][-1]['puzzle_id'] == request.json['PuzzleId']:
-            return {}, 401
             
     mongo.db[UserData.collection_name].update_one(matchTo, {
         '$push': {'puzzles_completed': {

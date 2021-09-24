@@ -43,7 +43,7 @@ const PlayPuzzle = () => {
             });
         }
         const testRating = 1500;
-        const response = await get(`/puzzles/${testRating}`);
+        const response = await get(`/puzzles/`);
         setCurrentPulledPuzzle(response.data);
         setKey(!key);
         setIsIncorrect(false);
