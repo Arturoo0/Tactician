@@ -43,6 +43,10 @@ def user_submission():
     game_score_value = 1 if request.json['Correct'] == True else 0
     new_user_rating = user_data_doc['rating'] + ((32) * (game_score_value - expected_user))
 
+    if user_data_doc['puzzles_completed']:
+        if user_data_doc['puzzles_completed'][-1]['puzzle_id'] == request.json['PuzzleId']:
+            return {}, 401
+            
     mongo.db[UserData.collection_name].update_one(matchTo, {
         '$push': {'puzzles_completed': {
             'puzzle_id': request.json['PuzzleId'],
