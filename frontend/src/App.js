@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import PlayPuzzle from './pages/PlayPuzzle';
 import { get } from './utils/baseRequest';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PageNav } from './components';
 
 import {
   BrowserRouter as Router,
@@ -28,6 +29,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/home">
+            <PageNav />
             {
               isAuthenticated ? 
               <PlayPuzzle />

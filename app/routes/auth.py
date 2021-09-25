@@ -97,3 +97,15 @@ def is_valid_session():
         return {}, 200
     else:
         return {}, 401
+
+@auth.route('/signout', methods=['POST'])
+@cross_origin(supports_credentials=True)
+def signout():
+    cookies = dict(request.cookies)
+    if 'session_id' not in cookies: 
+        return {}, 401
+    session_id = cookies[cookie_key]
+    matching_session = mongo.db[Session.collection_name].find_one({cookie_key: uuid.UUID(session_id)})
+    if matching_session:
+        mongo.db[Session.collection_name].remove({'session_id': uuid.UUID(session_id)})
+    return {}
