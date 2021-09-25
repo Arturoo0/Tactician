@@ -39,6 +39,9 @@ const PuzzlePanel = (props) => {
             <div style={infoStyle}>
                 {Math.round(props.rating)}
             </div>
+            <div>
+                {props.timeElapsed}
+            </div>
         </div>
     );
 };

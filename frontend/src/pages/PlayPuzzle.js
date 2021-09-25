@@ -32,10 +32,10 @@ const PlayPuzzle = () => {
     const [username, setUsername] = useState('loading...');
     const [displayGoNext, setDisplayGoNext] = useState(false);
     const [ratingChange, setRatingChange] = useState(null);
+    const [timeElapsedInSeconds, setTimeElapsedInSeconds] = useState(0);
 
     const pullNewPuzzle = async () => {
         const pulledUsername = await get('/user/username');
-        const testRating = 1500;
         const response = await get(`/puzzles/`);
         setCurrentPulledPuzzle(response.data);
         setKey(!key);
@@ -43,11 +43,21 @@ const PlayPuzzle = () => {
         setRating(response.data.user_rating);
         setUsername(pulledUsername.data.username);
         setDisplayGoNext(false);
+        setTimeElapsedInSeconds(0);
     };
 
     useEffect(async () => {
-        pullNewPuzzle();
+        pullNewPuzzle();        
     }, []);
+
+    useEffect(() => {
+        if (displayGoNext) return;
+        if (currentPulledPuzzle === null) return;
+        const increaseElapsedTime = setInterval(() => {
+            setTimeElapsedInSeconds(timeElapsedInSeconds + 1);
+        }, 1000); 
+        return () => clearInterval(increaseElapsedTime);
+    }, [timeElapsedInSeconds]);
 
     const handleDone = async () => {
         setDisplayGoNext(true);
@@ -68,7 +78,12 @@ const PlayPuzzle = () => {
         return (
             <div style={goNextStyle}>
                 <div>
-                    <RatingDiff rating={rating} diff={ratingChange} id={currentPulledPuzzle.PuzzleId}/>
+                    <RatingDiff 
+                        rating={rating} 
+                        diff={ratingChange} 
+                        id={currentPulledPuzzle.PuzzleId}
+                        timeTaken={timeElapsedInSeconds}
+                    />
                 </div> 
                 <Button onClick={() => {pullNewPuzzle()}}>
                     <BsArrowRight style={{fontSize: '2rem'}}></BsArrowRight>
@@ -93,7 +108,7 @@ const PlayPuzzle = () => {
                             puzzle={currentPulledPuzzle}
                             incorrectHandler={handleIncorrect}
                         />
-                        <PuzzlePanel rating={rating} username={username}/>
+                        <PuzzlePanel rating={rating} username={username} timeElapsed={timeElapsedInSeconds}/>
                     </div>
                     {renderGoNext()}
                 </div>

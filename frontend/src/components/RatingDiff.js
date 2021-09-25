@@ -21,23 +21,23 @@ const RatingDiff = (props) => {
             <Toast>
                 <Toast.Header>
                     <strong className="me-auto">Puzzle ID: #{props.id}</strong>
-                    <small>11 mins ago</small>
+                    <small>{props.timeTaken}</small>
                 </Toast.Header>
                 <Toast.Body style={toastBodyStyle}>
                     <div style={toastContentStyling}>{Math.round(props.rating)}</div>
                     <div style={{...toastContentStyling, ...toastBodyStyle}}><IoChevronForwardOutline /></div>
                     <div style={toastContentStyling}>{Math.round(props.rating + props.diff)}</div>  
                     <div style={{marginLeft: '6px'}}>
-                        {
-                            props.diff < 0 ?
-                            <Badge bg='danger'>
-                                <IoArrowDownOutline style={toastContentStyling}></IoArrowDownOutline>
-                            </Badge>
-                            :
-                            <Badge bg='success'>
-                                <IoArrowUpOutline style={toastContentStyling}></IoArrowUpOutline>
-                            </Badge>
-                        }
+                    {
+                        props.diff < 0 ?
+                        <Badge bg='danger'>
+                            <IoArrowDownOutline style={toastContentStyling}></IoArrowDownOutline>
+                        </Badge>
+                        :
+                        <Badge bg='success'>
+                            <IoArrowUpOutline style={toastContentStyling}></IoArrowUpOutline>
+                        </Badge>
+                    }
                     </div>
                 </Toast.Body>
             </Toast>
