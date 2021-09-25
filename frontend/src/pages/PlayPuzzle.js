@@ -63,7 +63,8 @@ const PlayPuzzle = () => {
         const response = await post('/puzzles/user-submission', {
             'PuzzleId': currentPulledPuzzle.PuzzleId,
             'Correct': !isIncorrect,
-            'Rating': currentPulledPuzzle.Rating
+            'Rating': currentPulledPuzzle.Rating,
+            'TimeElapsed': timeElapsedInSeconds
         });
         setRatingChange(response.data.rating_change);
     }; 

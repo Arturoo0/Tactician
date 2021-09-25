@@ -49,7 +49,8 @@ def user_submission():
     mongo.db[UserData.collection_name].update_one(matchTo, {
         '$push': {'puzzles_completed': {
             'puzzle_id': request.json['PuzzleId'],
-            'correct': request.json['Correct']
+            'correct': request.json['Correct'],
+            'time_elapsed_in_seconds': request.json['TimeElapsed']
         }},
         '$set': {'rating': new_user_rating}
     })
