@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import { Badge } from 'react-bootstrap';
 import { BsFillPersonFill } from "react-icons/bs";
 
 const puzzleContainer = {
@@ -22,8 +23,15 @@ const infoStyle = {
     fontSize: '1.5rem',
     width: '100%',
     textAlign: 'center',
-    fontWeight: '500'
+    fontWeight: '500',
+    overflowX: 'scroll'
 };
+
+const elapsedStyle = {
+    margin: 'auto 0 5px 0',
+    textAlign: 'center',
+    fontSize: '2rem'
+}
 
 const PuzzlePanel = (props) => {
     return (
@@ -32,15 +40,17 @@ const PuzzlePanel = (props) => {
                 <div>
                     <BsFillPersonFill size={'4rem'}></BsFillPersonFill>   
                 </div>
-                <div style={infoStyle}>
+                <div style={{...infoStyle, ...{fontSize: '1rem'}}}>
                     {props.username}
                 </div>
             </div>
             <div style={infoStyle}>
                 {Math.round(props.rating)}
             </div>
-            <div>
-                {props.timeElapsed}
+            <div style={elapsedStyle}>
+                <Badge bg='dark'>
+                    {new Date(props.timeElapsed * 1000).toISOString().substr(14, 5)}    
+                </Badge>
             </div>
         </div>
     );

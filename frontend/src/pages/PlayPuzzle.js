@@ -52,7 +52,6 @@ const PlayPuzzle = () => {
 
     useEffect(() => {
         if (displayGoNext) return;
-        if (currentPulledPuzzle === null) return;
         const increaseElapsedTime = setInterval(() => {
             setTimeElapsedInSeconds(timeElapsedInSeconds + 1);
         }, 1000); 

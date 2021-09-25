@@ -21,7 +21,14 @@ const RatingDiff = (props) => {
             <Toast>
                 <Toast.Header>
                     <strong className="me-auto">Puzzle ID: #{props.id}</strong>
-                    <small>{props.timeTaken}</small>
+                    <small>
+                        {
+                            props.timeTaken < 3600 ?
+                                new Date(props.timeTaken * 1000).toISOString().substr(14, 5)
+                            :
+                                <>Over an hour</> 
+                        }
+                        </small>
                 </Toast.Header>
                 <Toast.Body style={toastBodyStyle}>
                     <div style={toastContentStyling}>{Math.round(props.rating)}</div>
