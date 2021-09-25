@@ -11,13 +11,15 @@ const Puzzle = (props) => {
 
     const [gameInstance, setGameInstance] = useState(null);
     const [moveStack, setMoveStack] = useState(null);
-    const [gameOver, setGameOver] = useState(false);
     const [playerColor, setPlayerColor] = useState(null);
 
     const generateToAndFrom = (move) => {
         const _from = move[0] + move[1];
         const _to = move[2] + move[3];
-        return {_from, _to};
+        let _promotion = null
+        if (move.length === 5)
+            _promotion = move[4];
+        return {_from, _to, _promotion};
     }; 
     
     useEffect(() => {
@@ -46,22 +48,32 @@ const Puzzle = (props) => {
     };
 
     const _onDrop = (sourceSquare, targetSquare) => {
+        if (sourceSquare === targetSquare) return;
         const moves = moveStack.slice();
         const neededMove = moveStack[moves.length - 1];
-        if (sourceSquare === targetSquare) return;
-        if (neededMove === sourceSquare + targetSquare){
+        if (neededMove.substring(0, 4) === sourceSquare + targetSquare){
             moves.pop();
             if (moves.length === 0){
-                gameInstance.move({from: sourceSquare, to: targetSquare});
+                if (neededMove.length === 5)
+                    gameInstance.move({from: sourceSquare, to: targetSquare, promotion: neededMove[4]}); 
+                else
+                    gameInstance.move({from: sourceSquare, to: targetSquare});
                 setMoveStack(moves);
-                setGameOver(true);
                 props.gameHandler();
             }
             else{
                 const opposingMove = moves.pop();
-                const { _from, _to} = generateToAndFrom(opposingMove);
-                gameInstance.move({from: sourceSquare, to: targetSquare});
-                gameInstance.move({from: _from, to: _to});
+                const { _from, _to, _promotion} = generateToAndFrom(opposingMove);
+
+                if (neededMove.length === 5)
+                    gameInstance.move({from: sourceSquare, to: targetSquare, promotion: neededMove[4]}); 
+                else
+                    gameInstance.move({from: sourceSquare, to: targetSquare});
+
+                if (_promotion !== null)
+                    gameInstance.move({from: _from, to: _to, promotion: _promotion});
+                else
+                    gameInstance.move({from: _from, to: _to});
                 setMoveStack(moves); 
             }
         }else {

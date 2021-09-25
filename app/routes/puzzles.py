@@ -30,11 +30,11 @@ def get_puzzle():
 def user_submission():
     user_data_doc = check_user_validity(request.cookies)
     if user_data_doc == 401:
-        return {}, 401
+        return {'rating_change': 0}
     matchTo = {'user_data_identifier' : user_data_doc['user_data_identifier']}
     if user_data_doc['puzzles_completed']:
         if user_data_doc['puzzles_completed'][-1]['puzzle_id'] == request.json['PuzzleId']:
-            return {}, 401
+            return {'rating_change': 0}
 
     user_rating = user_data_doc['rating']
 
