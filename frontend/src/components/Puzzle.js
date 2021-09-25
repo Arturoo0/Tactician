@@ -12,6 +12,7 @@ const Puzzle = (props) => {
     const [gameInstance, setGameInstance] = useState(null);
     const [moveStack, setMoveStack] = useState(null);
     const [playerColor, setPlayerColor] = useState(null);
+    const [gameOver, setGameOver] = useState(false);
 
     const generateToAndFrom = (move) => {
         const _from = move[0] + move[1];
@@ -43,7 +44,7 @@ const Puzzle = (props) => {
     }, []);
 
     const _allowDrag = (piece) => {
-        if (piece[0] === gameInstance.turn()) return true;
+        if (piece[0] === gameInstance.turn() && gameOver === false) return true;
         return false;
     };
 
@@ -59,6 +60,7 @@ const Puzzle = (props) => {
                 else
                     gameInstance.move({from: sourceSquare, to: targetSquare});
                 setMoveStack(moves);
+                setGameOver(true);
                 props.gameHandler();
             }
             else{
