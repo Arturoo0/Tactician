@@ -19,7 +19,9 @@ def create_app():
 
     from .routes.auth import auth
     from .routes.puzzles import puzzles
+    from .routes.user import user
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(puzzles, url_prefix='/puzzles')
+    app.register_blueprint(user, url_prefix='/user')
     
     return app

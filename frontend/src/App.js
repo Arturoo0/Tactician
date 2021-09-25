@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
 import PlayPuzzle from './pages/PlayPuzzle';
 import { get } from './utils/baseRequest';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,7 +22,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{backgroundColor: '#112031'}}>
         <Switch>
           <Route path="/auth">
             <Login />

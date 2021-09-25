@@ -1,7 +1,8 @@
 
 class UserData:
     collection_name = 'user_data'
-    def __init__(self, user_data_identifier, puzzles_served, puzzles_completed, rating=1000):
+    def __init__(self, username, user_data_identifier, puzzles_served, puzzles_completed, rating=1000):
+        self.username = username
         self.user_data_identifier = user_data_identifier
         self.puzzles_served = puzzles_served
         self.puzzles_completed = puzzles_completed
@@ -9,6 +10,7 @@ class UserData:
     
     def generate_schema_dict(self):
         return {
+            'username': self.username,
             'user_data_identifier' : self.user_data_identifier,
             'puzzles_served': self.puzzles_served,
             'puzzles_completed': self.puzzles_completed,
