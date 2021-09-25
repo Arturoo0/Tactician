@@ -5,6 +5,7 @@ import Puzzle from "./Puzzle";
 import PuzzlePanel from "./PuzzlePanel";
 import RatingDiff from "./RatingDiff";
 import PageNav from "./PageNav";
+import SignedOut from "./SignedOut";
 
 export {
     LoginForm,
@@ -12,5 +13,6 @@ export {
     Puzzle,
     PuzzlePanel,
     RatingDiff, 
-    PageNav
+    PageNav, 
+    SignedOut
 }
