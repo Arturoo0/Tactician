@@ -48,7 +48,7 @@ const Puzzle = (props) => {
     const _onDrop = (sourceSquare, targetSquare) => {
         const moves = moveStack.slice();
         const neededMove = moveStack[moves.length - 1];
-
+        if (sourceSquare === targetSquare) return;
         if (neededMove === sourceSquare + targetSquare){
             moves.pop();
             if (moves.length === 0){
