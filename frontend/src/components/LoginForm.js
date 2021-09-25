@@ -5,7 +5,10 @@ import { post } from '../utils/baseRequest';
 const loginContainer = {
     display: 'flex',
     flexDirection: 'column', 
-    width: '300px'
+    width: '300px',
+    backgroundColor: 'white',
+    padding: '20px 40px', 
+    borderRadius: '5px'
 }
 
 const LoginForm = () => {
@@ -29,16 +32,15 @@ const LoginForm = () => {
 
     return (
         <div style={loginContainer}>
-            Login
             <label for="Email">Email</label>
             <input onChange={(e) => setEmailInput(e.target.value)} type="text" id="Email" name="Email"></input>
-
+            
             <label for="Username">Username</label>
             <input onChange={(e) => setUsernameInput(e.target.value)} type="text" id="Username" name="Username"></input>
             
             <label for="Password">Password</label>
             <input onChange={(e) => setPasswordInput(e.target.value)} type="text" id="Password" name="Password"></input>
-
+            
             <button type="btn" onClick={() => {pullFormInput()}}>Submit</button>
         </div>
     );

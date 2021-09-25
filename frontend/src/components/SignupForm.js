@@ -4,7 +4,10 @@ import { post } from '../utils/baseRequest';
 const signupFormContainer = {
     display: 'flex',
     flexDirection: 'column', 
-    width: '300px'
+    width: '300px',
+    backgroundColor: 'white',
+    padding: '20px 40px',
+    borderRadius: '5px'
 }
 
 const SignupForm = () => {
@@ -28,7 +31,6 @@ const SignupForm = () => {
 
     return (
         <div style={signupFormContainer}>
-            Sign up
             <label for="Email">Email</label>
             <input onChange={(e) => setEmailInput(e.target.value)} type="text" id="Email" name="Email"></input>
 
