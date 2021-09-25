@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Badge } from 'react-bootstrap';
 import { post } from '../utils/baseRequest';
 
 const PageNav = (path) => {
@@ -18,14 +18,14 @@ const PageNav = (path) => {
                 <Navbar.Brand onClick={() => {redirectPage('/home')}}>Tactician</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="ms-auto">
                         <Nav.Link onClick={() => {redirectPage('/home')}}>Home</Nav.Link>
                         <Nav.Link onClick={() => {
                             signout();
                             redirectPage('/auth');
                         }
                         }>
-                            <Button variant="danger">Sign out</Button>
+                            <Badge size={'sm'} bg="danger">Sign out</Badge>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
