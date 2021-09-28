@@ -19,8 +19,9 @@ const PageNav = (path) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link onClick={() => {
-                            redirectPage('/history');
+                        <Nav.Link onClick={(e) => {
+                            e.stopPropagation();
+                            redirectPage('/home/history');
                         }}>
                             History
                         </Nav.Link>

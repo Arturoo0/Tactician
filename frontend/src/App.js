@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
 import PlayPuzzle from './pages/PlayPuzzle';
+import History from './pages/History';
 import { get } from './utils/baseRequest';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PageNav, SignedOut } from './components';
@@ -38,14 +39,19 @@ function App() {
           <Route path="/home">
             {
               isAuthenticated ? 
-              <div>
-                <PageNav />
-                <PlayPuzzle />
-              </div>
+                <>
+                  <PageNav />
+                  <Route exact path="/home/history">
+                    <History />
+                  </Route>
+                  <Route exact path="/home">
+                    <PlayPuzzle />
+                  </Route>
+                </>  
               :
-              <div style={signedOutContainerStyle}>
-                <SignedOut />
-              </div>
+                <div style={signedOutContainerStyle}>
+                  <SignedOut />
+                </div>
             }
           </Route>
         </Switch>
