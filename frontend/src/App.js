@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import PlayPuzzle from './pages/PlayPuzzle';
 import { get } from './utils/baseRequest';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PageNav, SignedOut } from './components';
 
 import {
   BrowserRouter as Router,
@@ -10,6 +11,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+const signedOutContainerStyle = {
+  height: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,9 +38,14 @@ function App() {
           <Route path="/home">
             {
               isAuthenticated ? 
-              <PlayPuzzle />
+              <div>
+                <PageNav />
+                <PlayPuzzle />
+              </div>
               :
-              <div>Not authenticated</div>
+              <div style={signedOutContainerStyle}>
+                <SignedOut />
+              </div>
             }
           </Route>
         </Switch>

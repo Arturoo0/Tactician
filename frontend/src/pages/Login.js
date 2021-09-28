@@ -13,8 +13,17 @@ const authContainerStyle = {
 const switchFormButtonStyle = {
     border: 'none',
     backgroundColor: 'transparent',
-    fontSize: '1rem'
+    backgroundColor: 'white'
 };
+
+const switchContainer = {
+    display: 'flex',
+    flexDirection: 'row'
+};
+
+const whiteContainer = {
+    backgroundColor: 'white'
+}
 
 const Login = () => {
     const [selectedOption, setSelectedOption] = useState('login');
@@ -24,16 +33,29 @@ const Login = () => {
         else return <SignupForm />
     };  
 
+    const isSelected = (action) => {
+        if (selectedOption === action)
+            return { opacity: '.7' }
+        return { opacity: '1' }
+    };
+
     return (
         <div style={authContainerStyle}>     
-            <div>
-                <button style={
-                    {
-                        ...switchFormButtonStyle,
-                        borderRight: '2px solid #ddd'
-                    }
-                } onClick={() => setSelectedOption('login')}>Login</button>
-                <button style={switchFormButtonStyle} onClick={() => setSelectedOption('signup')}>Signup</button>
+            <div style={switchContainer}>
+                <div style={{...whiteContainer, ...isSelected('login')}}>
+                    <button style={
+                        {
+                            ...{
+                                ...switchFormButtonStyle,
+                                borderRight: '2px solid #ddd'
+                            }
+                        }
+                    } 
+                    onClick={() => setSelectedOption('login')}>Login</button>
+                </div>
+                <div style={{...whiteContainer, ...isSelected('signup')}}>
+                    <button style={switchFormButtonStyle} onClick={() => setSelectedOption('signup')}>Signup</button>
+                </div>
             </div>
             <div>
                 {renderAuthContainer()}
