@@ -36,6 +36,7 @@ const Login = () => {
     const isSelected = (action) => {
         if (selectedOption === action)
             return { opacity: '.7' }
+        return { opacity: '1' }
     };
 
     return (

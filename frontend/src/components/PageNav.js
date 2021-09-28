@@ -19,7 +19,6 @@ const PageNav = (path) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link onClick={() => {redirectPage('/home')}}>Home</Nav.Link>
                         <Nav.Link onClick={() => {
                             signout();
                             redirectPage('/auth');
