@@ -20,10 +20,14 @@ const PageNav = (path) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link onClick={() => {
+                            redirectPage('/history');
+                        }}>
+                            History
+                        </Nav.Link>
+                        <Nav.Link onClick={() => {
                             signout();
                             redirectPage('/auth');
-                        }
-                        }>
+                        }}>
                             <Badge size={'sm'} bg="danger">Sign out</Badge>
                         </Nav.Link>
                     </Nav>
