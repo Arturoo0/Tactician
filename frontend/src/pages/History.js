@@ -46,17 +46,14 @@ const History = () => {
 
     return (
         <div style={{color: 'white'}}>
-
+        <div>
+            <ul>
+                {generateHistoryPage()}
+            </ul>
+        </div>
         <Pagination>
             <Pagination.Prev />
-            <div>
                 {renderPages()}
-            </div>
-            <div>
-                <ul>
-                    {generateHistoryPage()}
-                </ul>
-            </div>
             <Pagination.Next />
         </Pagination>
 
