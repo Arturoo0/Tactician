@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { get } from '../utils/baseRequest';
 import { Pagination, Badge } from 'react-bootstrap';
 
+const gameHistoryUlStyle = {
+};
+
 const History = () => {
     const perPage = 10; 
     const pageRange = 5;
@@ -66,17 +69,16 @@ const History = () => {
 
     return (
         <div>
-        <div>
-            <ul>
-                {generateHistoryPage()}
-            </ul>
-        </div>
-        <Pagination>
-            <Pagination.Prev />
-                {renderPages()}
-            <Pagination.Next />
-        </Pagination>
-
+            <div>
+                <ul style={gameHistoryUlStyle}>
+                    {generateHistoryPage()}
+                </ul>
+            </div>
+            <Pagination>
+                <Pagination.Prev />
+                    {renderPages()}
+                <Pagination.Next />
+            </Pagination>
         </div>
     );
 };
