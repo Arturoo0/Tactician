@@ -23,8 +23,10 @@ const ulContainerStyle = {
     backgroundColor: 'white'
 }
 
-const liContentStyle = {
-    textAlign: 'center'
+const liContentHeaderStyle = { 
+    fontSize: '1.5rem',
+    fontWeight: '500',
+    color: 'gray'
 }
 
 const History = () => {
@@ -61,33 +63,48 @@ const History = () => {
             return (
                 <div>No game history available</div>
             );
-        }
-        const res = currentPageHistory.data.current_page_games.map(puzzle =>
-            <li style={{color: 'white'}} style={liHistoryContainerStyle}>
-                <div>
-                    {
-                        (puzzle.correct === true) ?
-                            <Badge bg='success'>
-                                Correct
-                            </Badge>
-                        :
-                            <Badge bg='danger'>
-                                Incorrect
-                            </Badge>
-                    }
-                </div>
-                <div>
-                    <Badge bg='primary'>
-                        Puzzle Id
-                    </Badge> {puzzle.puzzle_id}
-                </div>
-                <div>
-                    <Badge bg='primary'>
-                        Time elapsed
-                    </Badge> {puzzle.time_elapsed_in_seconds}
-                </div>
+        }        
+        let res = currentPageHistory.data.current_page_games.map(puzzle =>
+            <div>
+                <li style={{color: 'white'}} style={liHistoryContainerStyle}>
+                    <div>
+                        {
+                            (puzzle.correct === true) ?
+                                <Badge bg='success'>
+                                    Correct
+                                </Badge>
+                            :
+                                <Badge bg='danger'>
+                                    Incorrect
+                                </Badge>
+                        }
+                    </div>
+                    <div>
+                        {puzzle.puzzle_id}
+                    </div>
+                    <div>
+                        {puzzle.time_elapsed_in_seconds}
+                    </div>
+                </li>
                 <hr />
-            </li>
+            </div>
+        );
+        res.unshift(
+            <div>
+                <hr />
+                <li style={{color: 'white'}} style={liHistoryContainerStyle}>
+                    <div style={liContentHeaderStyle}>
+                        Was correct?
+                    </div>
+                    <div style={liContentHeaderStyle}>
+                        {'Puzzle Id'}
+                    </div>
+                    <div style={liContentHeaderStyle}>
+                        Elapsed time to complete
+                    </div>
+                </li>
+                <hr />
+            </div>
         );
         return res;
     };
@@ -95,7 +112,7 @@ const History = () => {
     return (
         <div style={gameHistoryMainContainerStyle}>
             <div>
-                <ul style={ulContainerStyle}>
+                <ul style={ulContainerStyle}>   
                     {generateHistoryPage()}
                 </ul>
             </div>
