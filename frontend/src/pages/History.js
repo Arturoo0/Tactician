@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { get } from '../utils/baseRequest';
-import { Pagination } from 'react-bootstrap';
+import { Pagination, Badge } from 'react-bootstrap';
 
 const History = () => {
     const perPage = 10; 
@@ -38,14 +38,31 @@ const History = () => {
                 <div>No game history available</div>
             );
         }
+        console.log(currentPageHistory);
         const res = currentPageHistory.data.current_page_games.map(puzzle =>
-            <li>Testing</li>
+            <li style={{color: 'white'}}>
+                <div>
+                    {
+                        (puzzle.correct === true) ?
+                            <Badge bg='success'>
+                                Correct
+                            </Badge>
+                        :
+                            <Badge bg='danger'>
+                                Incorrect
+                            </Badge>
+                    }
+                </div>
+                <div>
+                    {puzzle.puzzle_id}
+                </div>
+            </li>
         );
         return res;
     };
 
     return (
-        <div style={{color: 'white'}}>
+        <div>
         <div>
             <ul>
                 {generateHistoryPage()}
