@@ -83,7 +83,12 @@ const History = () => {
                         {puzzle.puzzle_id}
                     </div>
                     <div>
-                        {puzzle.time_elapsed_in_seconds}
+                        {
+                            puzzle.time_elapsed_in_seconds < 3600 ?
+                                new Date(puzzle.time_elapsed_in_seconds * 1000).toISOString().substr(14, 5)
+                            :
+                                <>Over an hour</> 
+                        }
                     </div>
                 </li>
                 <hr />
