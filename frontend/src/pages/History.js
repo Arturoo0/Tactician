@@ -7,7 +7,8 @@ const History = () => {
     const perPage = 10; 
     const pageRange = 5;
     const [numberOfPages, setNumberOfPages] = useState();
-    const [currentPage, setCurrentPage] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageHistory, setCurrentPageHistory] = useState(null);
 
     useEffect(async () => {
         const response = await get(`/puzzles/number-of-history-pages/${perPage}`, {}); 
@@ -17,13 +18,30 @@ const History = () => {
         setNumberOfPages(pages);
     });
 
+    useEffect(async () => {
+        const response = await get(`/puzzles/history-page/${1}/${perPage}`, {});
+        setCurrentPageHistory(response);
+    }, [currentPage]);
+
     const renderPages = () => {
         const pages = [];
         for (let i = 0; i < numberOfPages; i++){
-            pages.push(<Pagination.Item>{i + 1}</Pagination.Item>);
+            pages.push(<Pagination.Item onClick={() => {setCurrentPage(i + 1)}}>{i + 1}</Pagination.Item>);
             if (pages.length > pageRange) break;
         }
         return pages;
+    };
+
+    const generateHistoryPage = () => {
+        if (currentPageHistory === null || currentPageHistory.length === 0){
+            return (
+                <div>No game history available</div>
+            );
+        }
+        const res = currentPageHistory.data.current_page_games.map(puzzle =>
+            <li>Testing</li>
+        );
+        return res;
     };
 
     return (
@@ -31,7 +49,14 @@ const History = () => {
 
         <Pagination>
             <Pagination.Prev />
-            {renderPages()}
+            <div>
+                {renderPages()}
+            </div>
+            <div>
+                <ul>
+                    {generateHistoryPage()}
+                </ul>
+            </div>
             <Pagination.Next />
         </Pagination>
 
