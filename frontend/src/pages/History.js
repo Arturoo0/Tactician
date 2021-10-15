@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { get } from '../utils/baseRequest';
 import { Pagination, Badge } from 'react-bootstrap';
 
-const gameHistoryUlStyle = {
+const gameHistoryMainContainerStyle = {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
 };
 
 const History = () => {
@@ -41,7 +46,6 @@ const History = () => {
                 <div>No game history available</div>
             );
         }
-        console.log(currentPageHistory);
         const res = currentPageHistory.data.current_page_games.map(puzzle =>
             <li style={{color: 'white'}}>
                 <div>
@@ -68,17 +72,19 @@ const History = () => {
     };
 
     return (
-        <div>
+        <div style={gameHistoryMainContainerStyle}>
             <div>
-                <ul style={gameHistoryUlStyle}>
+                <ul>
                     {generateHistoryPage()}
                 </ul>
             </div>
-            <Pagination>
-                <Pagination.Prev />
-                    {renderPages()}
-                <Pagination.Next />
-            </Pagination>
+            <div>
+                <Pagination>
+                    <Pagination.Prev />
+                        {renderPages()}
+                    <Pagination.Next />
+                </Pagination>
+            </div>
         </div>
     );
 };
