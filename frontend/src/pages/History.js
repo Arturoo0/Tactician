@@ -23,6 +23,10 @@ const ulContainerStyle = {
     backgroundColor: 'white'
 }
 
+const liContentStyle = {
+    textAlign: 'center'
+}
+
 const History = () => {
     const perPage = 10; 
     const pageRange = 5;
@@ -73,12 +77,14 @@ const History = () => {
                     }
                 </div>
                 <div>
-                    <Badge bg='info'>
+                    <Badge bg='primary'>
                         Puzzle Id
                     </Badge> {puzzle.puzzle_id}
                 </div>
                 <div>
-                    {puzzle.time_elapsed_in_seconds}
+                    <Badge bg='primary'>
+                        Time elapsed
+                    </Badge> {puzzle.time_elapsed_in_seconds}
                 </div>
                 <hr />
             </li>
