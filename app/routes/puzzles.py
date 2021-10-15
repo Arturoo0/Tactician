@@ -90,5 +90,5 @@ def history_page(page, per_page):
     leftRange = per_page * page
     rightRange = leftRange + per_page
     return {
-        'current_page_games' : user_data_doc['puzzles_completed'][leftRange:rightRange]
+        'current_page_games' : user_data_doc['puzzles_completed'][leftRange:rightRange][::-1]
     }

@@ -6,12 +6,15 @@ import { Pagination, Badge } from 'react-bootstrap';
 const gameHistoryMainContainerStyle = {
     height: '100vh',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'center'
 };
 
 const liHistoryContainerStyle = {
     listStyle: 'none',
-    display: 'flex'
+    display: 'flex',
+    padding: '0 3px',
+    justifyContent: 'space-between'
 }
 
 const ulContainerStyle = {
@@ -36,7 +39,7 @@ const History = () => {
     });
 
     useEffect(async () => {
-        const response = await get(`/puzzles/history-page/${1}/${perPage}`, {});
+        const response = await get(`/puzzles/history-page/${currentPage}/${perPage}`, {});
         setCurrentPageHistory(response);
     }, [currentPage]);
 
@@ -70,7 +73,9 @@ const History = () => {
                     }
                 </div>
                 <div>
-                    {puzzle.puzzle_id}
+                    <Badge bg='info'>
+                        Puzzle Id
+                    </Badge> {puzzle.puzzle_id}
                 </div>
                 <div>
                     {puzzle.time_elapsed_in_seconds}
