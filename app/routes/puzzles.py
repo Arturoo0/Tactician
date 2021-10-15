@@ -85,10 +85,10 @@ def number_of_history_pages(per_page):
 def history_page(page, per_page):
     user_data_doc = check_user_validity(request.cookies)
     if user_data_doc == 401: return {}, 401
-    print(page, per_page)
     page, per_page = int(page) - 1, int(per_page)
     leftRange = per_page * page
     rightRange = leftRange + per_page
     return {
-        'current_page_games' : user_data_doc['puzzles_completed'][::-1][leftRange:rightRange]
+        'current_page_games' : user_data_doc['puzzles_completed'][::-1][leftRange:rightRange],
+        'respective_numerical_serve' : [serveNumber for serveNumber in range(leftRange, rightRange+1)]
     }

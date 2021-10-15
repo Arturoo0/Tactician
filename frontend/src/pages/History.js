@@ -63,10 +63,11 @@ const History = () => {
             return (
                 <div>No game history available</div>
             );
-        }        
-        let res = currentPageHistory.data.current_page_games.map(puzzle =>
+        }       
+        let res = currentPageHistory.data.current_page_games.map((puzzle, index) =>
             <div>
                 <li style={{color: 'white'}} style={liHistoryContainerStyle}>
+                    <div>#{currentPageHistory.data.respective_numerical_serve[index] + 1}</div>
                     <div>
                         {
                             (puzzle.correct === true) ?
