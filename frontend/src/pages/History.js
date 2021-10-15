@@ -56,6 +56,9 @@ const History = () => {
                 <div>
                     {puzzle.puzzle_id}
                 </div>
+                <div>
+                    {puzzle.time_elapsed_in_seconds}
+                </div>
             </li>
         );
         return res;
