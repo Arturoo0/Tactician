@@ -57,3 +57,38 @@ def user_submission():
     return {
         'rating_change': new_user_rating - user_data_doc['rating']
     }
+
+@puzzles.route('/user-history', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def user_history():
+    user_data_doc = check_user_validity(request.cookies)
+    if user_data_doc == 401: return {}, 401
+    return {
+        'completed_matches': user_data_doc['puzzles_completed']
+    }
+
+@puzzles.route('/number-of-history-pages/<per_page>', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def number_of_history_pages(per_page):
+    user_data_doc = check_user_validity(request.cookies)
+    if user_data_doc == 401: return {}, 401
+    per_page = int(per_page)
+    completed_games = user_data_doc['puzzles_completed']
+    if len(completed_games) <= per_page:
+        return { 'pages' : 1 }
+    remainingHistory = len(completed_games) % per_page
+    pages = ((len(completed_games) - remainingHistory)//per_page) + 1
+    return { 'pages' : pages }
+
+@puzzles.route('/history-page/<page>/<per_page>', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def history_page(page, per_page):
+    user_data_doc = check_user_validity(request.cookies)
+    if user_data_doc == 401: return {}, 401
+    page, per_page = int(page) - 1, int(per_page)
+    leftRange = per_page * page
+    rightRange = leftRange + per_page
+    return {
+        'current_page_games' : user_data_doc['puzzles_completed'][::-1][leftRange:rightRange],
+        'respective_numerical_serve' : [serveNumber for serveNumber in range(leftRange, rightRange+1)]
+    }
