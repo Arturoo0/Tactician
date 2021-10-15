@@ -77,7 +77,7 @@ const History = () => {
                         }
                     </div>
                     <div>
-                        {puzzle.puzzle_id}
+                        #{puzzle.puzzle_id}
                     </div>
                     <div>
                         {
@@ -102,7 +102,7 @@ const History = () => {
                         Was correct?
                     </div>
                     <div style={liContentHeaderStyle}>
-                        {'Puzzle Id'}
+                        Puzzle Id
                     </div>
                     <div style={liContentHeaderStyle}>
                         Elapsed time to complete
