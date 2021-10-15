@@ -71,13 +71,9 @@ const History = () => {
                     <div>
                         {
                             (puzzle.correct === true) ?
-                                <Badge bg='success'>
-                                    Correct
-                                </Badge>
+                                <Badge bg='success'>Correct</Badge>
                             :
-                                <Badge bg='danger'>
-                                    Incorrect
-                                </Badge>
+                                <Badge bg='danger'>Incorrect</Badge>
                         }
                     </div>
                     <div>
@@ -99,6 +95,9 @@ const History = () => {
             <div>
                 <hr />
                 <li style={{color: 'white'}} style={liHistoryContainerStyle}>
+                    <div style={liContentHeaderStyle}>
+                        Puzzle number
+                    </div>
                     <div style={liContentHeaderStyle}>
                         Was correct?
                     </div>
