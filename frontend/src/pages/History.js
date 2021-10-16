@@ -59,11 +59,11 @@ const History = () => {
     };
 
     const generateHistoryPage = () => {
-        if (currentPageHistory === null || currentPageHistory.length === 0){
+        if (currentPageHistory === null || currentPageHistory.data.current_page_games <= 0){
             return (
-                <div>No game history available</div>
+                <div>No prior game history available</div>
             );
-        }       
+        };     
         let res = currentPageHistory.data.current_page_games.map((puzzle, index) =>
             <div>
                 <li style={{color: 'white'}} style={liHistoryContainerStyle}>
