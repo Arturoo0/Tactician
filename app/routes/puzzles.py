@@ -1,4 +1,5 @@
 
+from os import supports_bytes_environ
 from re import match
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
@@ -8,6 +9,11 @@ from . import check_user_validity
 
 puzzles = Blueprint('puzzles', __name__)
 CORS(puzzles)
+
+@puzzles.route('/heartbeat', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def heartbeat():
+    return {}
 
 @puzzles.route('/', methods=['GET'])
 @cross_origin(supports_credentials=True)
