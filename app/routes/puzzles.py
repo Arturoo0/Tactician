@@ -22,14 +22,19 @@ def get_puzzle():
     if user_data_doc == 401:
         return {}, 401
 
-    pulledPuzzle = puzzle_container.pull_tactic(user_data_doc['rating'])
+    pulled_puzzle = puzzle_container.pull_tactic(user_data_doc['rating'], mongo)
+    doc_match = {
+        'PuzzleId' : pulled_puzzle
+    }
+    pulled_puzzle = mongo.db['puzzles'].find_one(doc_match)
+    del pulled_puzzle['_id']
 
     matchTo = { 'user_data_identifier' : user_data_doc['user_data_identifier']}
     mongo.db[UserData.collection_name].update_one(matchTo, {
-        '$push': {'puzzles_served': pulledPuzzle['PuzzleId']}
+        '$push': {'puzzles_served': pulled_puzzle['PuzzleId']}
     })
-    pulledPuzzle['user_rating'] = user_data_doc['rating']
-    return pulledPuzzle
+    pulled_puzzle['user_rating'] = user_data_doc['rating']
+    return pulled_puzzle
 
 @puzzles.route('/user-submission', methods=['POST'])
 @cross_origin(supports_credentials=True)
