@@ -1,5 +1,6 @@
 import csv 
 import random
+import json
 
 class PuzzleContainer:
     def __init__(self):
@@ -17,6 +18,10 @@ class PuzzleContainer:
                 rounded_rating = rating - (rating % 100)
                 id_mapped_puzzles[row['PuzzleId']] = row
                 puzzles_by_rating[rounded_rating//100].append(row)
+        with open('app/puzzles/puzzle.json', 'w+') as fp:
+            json.dump(id_mapped_puzzles, fp)
+        with open('app/puzzles/puzzle_ratings.json', 'w+') as fp:
+            json.dump({'puzzles_by_rating': puzzles_by_rating}, fp)
         return (id_mapped_puzzles, puzzles_by_rating)
 
     def pull_tactic(self, rating):
