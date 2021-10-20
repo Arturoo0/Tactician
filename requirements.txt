@@ -1,7 +1,10 @@
 bcrypt==3.2.0
+boto3==1.18.64
+botocore==1.21.64
 cffi==1.14.6
 click==8.0.1
 dnspython==1.16.0
+EditorConfig==0.12.3
 Flask==2.0.1
 Flask-Bcrypt==0.7.1
 Flask-Cors==3.0.10
@@ -9,8 +12,14 @@ Flask-PyMongo==2.3.0
 gunicorn==20.1.0
 itsdangerous==2.0.1
 Jinja2==3.0.1
+jmespath==0.10.0
+jsbeautifier==1.14.0
 MarkupSafe==2.0.1
 pycparser==2.20
 pymongo==3.12.0
+python-dateutil==2.8.2
+python-decouple==3.4
+s3transfer==0.5.0
 six==1.16.0
+urllib3==1.26.7
 Werkzeug==2.0.1
