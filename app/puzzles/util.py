@@ -15,7 +15,13 @@ class PuzzleContainer:
                 rating = int(row['Rating'])
                 rounded_rating = rating - (rating % 100)
                 id_mapped_puzzles[row['PuzzleId']] = row
-                puzzles_by_rating[rounded_rating//100] = (row)
+
+                rating_to_position = rounded_rating//100
+                if rating_to_position in puzzles_by_rating:
+                    puzzles_by_rating[rating_to_position].append(row)
+                else:
+                    puzzles_by_rating[rating_to_position] = [row]
+
         # with open('app/puzzles/puzzle.json', 'w+') as fp:
         #     json.dump(id_mapped_puzzles, fp)
         with open('app/puzzles/puzzle_ratings.json', 'w+') as fp:
