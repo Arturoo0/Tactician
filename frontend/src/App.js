@@ -28,7 +28,7 @@ function App() {
     if (response.status !== 200) setIsAuthenticated(false);
     else setIsAuthenticated(true);
   }, [])
-
+  
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div style={{backgroundColor: '#112031'}}>
