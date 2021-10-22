@@ -46,7 +46,7 @@ def signup():
         response = make_response({
             'message': 'Sign up succesful'
         }) 
-        response.set_cookie(cookie_key, value=str(generated_session_id), secure=True)
+        response.set_cookie(cookie_key, value=str(generated_session_id))
         return response 
     except Exception as e:
         logging.error(e)
