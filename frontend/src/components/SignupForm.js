@@ -21,7 +21,7 @@ const SignupForm = () => {
             username: usernameInput,
             password: passwordInput
         }
-        const response = await post('auth/sign-up', inputs);
+        const response = await post('/auth/sign-up', inputs);
         if (response.status !== '200' && 'errRes' in response){
             window.alert(response.errRes.message)
         }else{

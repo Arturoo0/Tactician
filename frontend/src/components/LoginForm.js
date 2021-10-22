@@ -22,7 +22,7 @@ const LoginForm = () => {
             username: usernameInput,
             password: passwordInput
         }
-        const response = await post('auth/login', inputs);
+        const response = await post('/auth/login', inputs);
         if (response.status !== '200' && 'errRes' in response){
             window.alert(response.errRes.message)
         }else{

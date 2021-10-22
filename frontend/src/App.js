@@ -10,7 +10,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  BrowserRouter
 } from "react-router-dom";
 
 const signedOutContainerStyle = {
@@ -30,7 +30,7 @@ function App() {
   }, [])
 
   return (
-    <Router>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div style={{backgroundColor: '#112031'}}>
         <Switch>
           <Route path="/auth">
@@ -56,7 +56,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
