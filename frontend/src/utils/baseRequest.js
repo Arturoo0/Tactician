@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
-const baseReqPath = 'https://tactician-trainer.herokuapp.com';
+const baseReqPath = 'http://172.31.24.12:8080';
 
 const checkPassedEndpoint = (endpoint) => {
     if (endpoint === undefined){
