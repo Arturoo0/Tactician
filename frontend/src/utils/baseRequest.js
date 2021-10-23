@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
-const baseReqPath = 'http://172.31.24.12:8080';
+const baseReqPath = 'http://52.15.212.236:5000';
 
 const checkPassedEndpoint = (endpoint) => {
     if (endpoint === undefined){
