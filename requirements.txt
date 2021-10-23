@@ -3,6 +3,7 @@ boto3==1.18.64
 botocore==1.21.64
 cffi==1.14.6
 click==8.0.1
+cryptography==35.0.0
 dnspython==1.16.0
 EditorConfig==0.12.3
 Flask==2.0.1
@@ -17,6 +18,7 @@ jsbeautifier==1.14.0
 MarkupSafe==2.0.1
 pycparser==2.20
 pymongo==3.12.0
+pyOpenSSL==21.0.0
 python-dateutil==2.8.2
 python-decouple==3.4
 s3transfer==0.5.0
